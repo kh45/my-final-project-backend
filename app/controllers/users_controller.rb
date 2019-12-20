@@ -5,6 +5,13 @@ class UsersController < ApplicationController
         render json: users.to_json(:include => :leagues, :except => [:updated_at])
     end
 
+    def show
+        user = User.find(params[:id])
+        # byebug
+        render json: user.to_json(:include => :leagues, :except => [:updated_at])
+    end
+
+
     def login
         user = User.find_by(username: params["username"], password: params["password"])
         # User.find_by(username:"UsernameIsMyUsername",password:"Mypassword")

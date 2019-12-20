@@ -223,11 +223,12 @@ require 'watir'
 
 # Team.update(30, :logo => 'https://upload.wikimedia.org/wikipedia/en/c/c7/SacramentoKings.svg')
 
-# def update_logos
+# def assign
 #     teams = Team.all
 #     teams.each do |team|
-#         Team.update(team.id, :logo => "https://stats.nba.com/media/img/teams/logos/#{team["alias"]}_logo.svg")
+#         Team.update(team.id, :league_id => 1)
 #     end
 # end
 
 # update_logos()
+
