@@ -5,6 +5,11 @@ class TeamsController < ApplicationController
         render json: teams.to_json(to_serialized_json)
     end
 
+    def NBATeams
+        teams = Team.all
+        render json: teams.to_json(to_serialized_json)
+    end
+
     private
 
     def to_serialized_json

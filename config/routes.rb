@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   post '/login' => 'users#login'
   post '/addLeague' => 'users#addLeague'
   post '/NBAHome' => 'leagues#NBAHome'
+  post '/addPlayer' => 'users#followPlayer'
+  post '/players/:id' => 'players#profile'
+  post '/user/home' => 'users#home'
 
+  post '/NFLHome' => 'leagues#NFLHome'
+  get 'NBAteams' => 'teams#NBATeams'
 
 end

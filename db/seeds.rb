@@ -232,3 +232,17 @@ require 'watir'
 
 # update_logos()
 
+# UserLeague.destroy(47)
+# User.create(username: 'newuser', password: 'thegame', email: 'hello@gmail', name: 'New User')
+
+# raw_team = RestClient.get("https://api.sportsdata.io/v3/nba/scores/json/teams?key=dd539433905f43c9a6f29230ac1f24d3")
+# fresh_team = JSON.parse(raw_team)
+# fresh_team.each do |team|
+#     da_team = Team.find_by(name: team["Name"])
+#     # puts da_team.name
+#     Team.update(da_team.id,
+#         :primaryColor => team['PrimaryColor'],
+#         :secondaryColor => team['SecondaryColor'],
+#         :tertiaryColor => team['TertiaryColor'],
+#         :quaternaryColor => team['QuaternaryColor'])
+#     end
