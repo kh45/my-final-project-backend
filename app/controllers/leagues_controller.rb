@@ -1,5 +1,10 @@
 class LeaguesController < ApplicationController
 
+    def index
+        leagues = League.all
+        render json: leagues.to_json(:include => :teams, :except => [:updated_at])
+    end
+    
     def NBAHome
         leagueLeaders_raw = RestClient.get('http://api.sportradar.us/nba/trial/v7/en/seasons/2019/REG/leaders.json?api_key=sa6bcrzgfpyff5t5ynbe7evf')
         leagueLeaders = JSON.parse(leagueLeaders_raw)

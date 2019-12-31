@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post '/user/home' => 'users#home'
 
   post '/NFLHome' => 'leagues#NFLHome'
-  get 'NBAteams' => 'teams#NBATeams'
+  get '/NBAteams' => 'teams#NBATeams'
+  get '/NBAPlayers' => 'players#NBAPlayers'
+  get '/NFLPlayers' => 'players#NFLPlayers'
 
 end

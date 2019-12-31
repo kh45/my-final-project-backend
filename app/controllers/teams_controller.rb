@@ -6,8 +6,15 @@ class TeamsController < ApplicationController
     end
 
     def NBATeams
-        teams = Team.all
-        render json: teams.to_json(to_serialized_json)
+        nba = League.find(1)
+        # render json: nba
+        render json: nba.teams.to_json(to_serialized_json)
+    end
+
+    def NFLTeams
+        nfl = League.find(3)
+        # render json: nba
+        render json: nfl.teams.to_json(to_serialized_json)
     end
 
     private

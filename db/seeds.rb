@@ -246,3 +246,65 @@ require 'watir'
 #         :tertiaryColor => team['TertiaryColor'],
 #         :quaternaryColor => team['QuaternaryColor'])
 #     end
+
+
+# def nfl_seeding
+#     nfl_teamsRAW = RestClient.get('http://api.sportradar.us/nfl/official/trial/v5/en/league/hierarchy.json?api_key=gxwenyjwghsgpusdmj8qs8t3')
+#     nfl_teams = JSON.parse(nfl_teamsRAW)
+#     afc = nfl_teams["conferences"][1]["divisions"]
+#     afc.each do |div|
+#         div["teams"].each do |team|
+#             Team.create(name: team["name"], alias: team["alias"], market: team["market"], sportradarRef: team["id"], league_id: 3)
+#         end
+#     end
+# end
+
+# nfl_seeding()
+
+# def nfl_seeding
+#     # nfl = League.find(3)
+#     # teams = nfl.teams
+#     current_team = '768c92aa-75ff-4a43-bcc0-f2798c2e1724'
+#     nfl_team = Team.find_by(sportradarRef: current_team)
+#     nfl_teamsRAW = RestClient.get("https://api.sportradar.us/nfl/official/trial/v5/en/teams/#{current_team}/full_roster.json?api_key=gxwenyjwghsgpusdmj8qs8t3")
+#     nfl_roster = JSON.parse(nfl_teamsRAW)
+#     nfl_roster["players"].each do |player|
+#         Player.create(sportradarRef: player["id"], full_name: player["name"], first_name: player["first_name"], last_name: player["last_name"], height: player["height"], weight: player["weight"], position: player["position"], jersey_number: player["jersey"], college: player["college"], birthdate: player["birth_date"], teamRef: current_team, team_id: nfl_team.id)
+#     end
+# end
+
+# nfl_seeding()
+
+    # teams.each do |team|
+    #     nfl_teamsRAW = RestClient.get("https://api.sportradar.us/nfl/official/trial/v5/en/teams/#{team.sportradarRef}/full_roster.json?api_key=gxwenyjwghsgpusdmj8qs8t3")
+    #     nfl_roster = JSON.parse(nfl_teamsRAW)
+    #     nfl_roster["players"].each do |player|
+
+#     nfl_teams = JSON.parse(nfl_teamsRAW)
+#     afc = nfl_teams["conferences"][1]["divisions"]
+#     afc.each do |div|
+#         div["teams"].each do |team|
+#             Team.create(name: team["name"], alias: team["alias"], market: team["market"], sportradarRef: team["id"], league_id: 3)
+#         end
+#     end
+# end
+
+# nfl_seeding()
+
+# def team_logos
+#     nfl = League.find(3)
+#     nfl.teams.each do |team|
+#         team.players.each do |player|
+#             Player.update(player.id, :headshot => 'https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/2576623.png&w=350&h=254')
+#         end
+#     end
+# end
+
+# team_logos()
+
+# def texans
+#     player = Player.find(2580)
+#     Player.update(player.id, :headshot => 'https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/2330.png&w=350&h=254')
+# end
+
+# texans()
