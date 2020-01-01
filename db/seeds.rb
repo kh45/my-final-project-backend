@@ -302,37 +302,37 @@ require 'watir'
 
 # team_logos()
 
-def espn
-    html = open("https://www.espn.com/nfl/team/depth/_/name/oak")
-    doc = Nokogiri::HTML(html).css('a')
-    players = []
-    doc.each do |link|
-        # byebug
-        if link.attr("href") != nil && link.attr('href').include?('http://www.espn.com/nfl/player')
-            players.push(link)
-        end
-    end
-    players.each do |player|
-        # byebug
-        full_name = player.attr('href').split('/')[-1].split('-')
-        espn_id = player.attr('href').split('/')[7]
-        first_name = full_name[0].capitalize()
-        last_name = full_name[1].capitalize()
+# def espn
+#     html = open("https://www.espn.com/nfl/team/depth/_/name/oak")
+#     doc = Nokogiri::HTML(html).css('a')
+#     players = []
+#     doc.each do |link|
+#         # byebug
+#         if link.attr("href") != nil && link.attr('href').include?('http://www.espn.com/nfl/player')
+#             players.push(link)
+#         end
+#     end
+#     players.each do |player|
+#         # byebug
+#         full_name = player.attr('href').split('/')[-1].split('-')
+#         espn_id = player.attr('href').split('/')[7]
+#         first_name = full_name[0].capitalize()
+#         last_name = full_name[1].capitalize()
 
-        team_idd = 46
+#         team_idd = 46
 
-        if Player.where(first_name: first_name, last_name: last_name, team_id: team_idd).length > 0
-            guy = Player.where(first_name: first_name, last_name: last_name, team_id: team_idd)
-            Player.update(guy[0].id, :headshot => "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/#{espn_id}.png&w=350&h=254")
-            # byebug
-        else
-            puts full_name
-        end
-        # puts full_name
-    end
-end
+#         if Player.where(first_name: first_name, last_name: last_name, team_id: team_idd).length > 0
+#             guy = Player.where(first_name: first_name, last_name: last_name, team_id: team_idd)
+#             Player.update(guy[0].id, :headshot => "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/#{espn_id}.png&w=350&h=254")
+#             # byebug
+#         else
+#             puts full_name
+#         end
+#         # puts full_name
+#     end
+# end
 
-espn()
+# espn()
 
 def starter
     player = Player.where(first_name: 'Isaiah', last_name: 'McKenzie')

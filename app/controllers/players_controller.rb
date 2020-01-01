@@ -28,7 +28,7 @@ class PlayersController < ApplicationController
         # new_player = player.includes(:team)
 
         if params[:league] == 'NBA'
-            playerStats_raw = RestClient.get("http://api.sportradar.us/nba/trial/v7/en/players/#{params[:id]}/profile.json?api_key=sa6bcrzgfpyff5t5ynbe7evf")
+            playerStats_raw = RestClient.get("http://api.sportradar.us/nba/trial/v7/en/players/#{params[:id]}/profile.json?api_key=cgp756j3uygfn3kqzcbj8xex")
             playerStats = JSON.parse(playerStats_raw)
 
             articles = []

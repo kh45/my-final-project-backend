@@ -6,15 +6,15 @@ class LeaguesController < ApplicationController
     end
     
     def NBAHome
-        leagueLeaders_raw = RestClient.get('http://api.sportradar.us/nba/trial/v7/en/seasons/2019/REG/leaders.json?api_key=sa6bcrzgfpyff5t5ynbe7evf')
+        leagueLeaders_raw = RestClient.get('http://api.sportradar.us/nba/trial/v7/en/seasons/2019/REG/leaders.json?api_key=cgp756j3uygfn3kqzcbj8xex')
         leagueLeaders = JSON.parse(leagueLeaders_raw)
 
-        leagueStandings_raw = RestClient.get('http://api.sportradar.us/nba/trial/v7/en/seasons/2019/REG/standings.json?api_key=sa6bcrzgfpyff5t5ynbe7evf')
+        leagueStandings_raw = RestClient.get('http://api.sportradar.us/nba/trial/v7/en/seasons/2019/REG/standings.json?api_key=cgp756j3uygfn3kqzcbj8xex')
         leagueStandings = JSON.parse(leagueStandings_raw)
 
         sleep 1
 
-        upcomingGames_raw = RestClient.get("http://api.sportradar.us/nba/trial/v7/en/games/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/schedule.json?api_key=sa6bcrzgfpyff5t5ynbe7evf")
+        upcomingGames_raw = RestClient.get("http://api.sportradar.us/nba/trial/v7/en/games/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/schedule.json?api_key=cgp756j3uygfn3kqzcbj8xex")
         upcomingGames = JSON.parse(upcomingGames_raw)
 
         # byebug
