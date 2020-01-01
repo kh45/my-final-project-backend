@@ -302,9 +302,54 @@ require 'watir'
 
 # team_logos()
 
-# def texans
-#     player = Player.find(2580)
-#     Player.update(player.id, :headshot => 'https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/2330.png&w=350&h=254')
+def espn
+    html = open("https://www.espn.com/nfl/team/depth/_/name/oak")
+    doc = Nokogiri::HTML(html).css('a')
+    players = []
+    doc.each do |link|
+        # byebug
+        if link.attr("href") != nil && link.attr('href').include?('http://www.espn.com/nfl/player')
+            players.push(link)
+        end
+    end
+    players.each do |player|
+        # byebug
+        full_name = player.attr('href').split('/')[-1].split('-')
+        espn_id = player.attr('href').split('/')[7]
+        first_name = full_name[0].capitalize()
+        last_name = full_name[1].capitalize()
+
+        team_idd = 46
+
+        if Player.where(first_name: first_name, last_name: last_name, team_id: team_idd).length > 0
+            guy = Player.where(first_name: first_name, last_name: last_name, team_id: team_idd)
+            Player.update(guy[0].id, :headshot => "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/#{espn_id}.png&w=350&h=254")
+            # byebug
+        else
+            puts full_name
+        end
+        # puts full_name
+    end
+end
+
+espn()
+
+def starter
+    player = Player.where(first_name: 'Isaiah', last_name: 'McKenzie')
+    Player.update(player[0].id, :headshot => 'https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/3128724.png&w=350&h=254')
+    # byebug
+end
+
+# starter()
+
+# def titans
+#     da_id = '386bdbf9-9eea-4869-bb9a-274b0bc66e80'
+#     team_raw = RestClient.get("https://api.sportradar.us/nfl/official/trial/v5/en/teams/#{da_id}/full_roster.json?api_key=gxwenyjwghsgpusdmj8qs8t3")
+#     team = JSON.parse(team_raw)
+#     team["players"].each do |player|
+#         Player.create(sportradarRef: player["id"], full_name: player["name"], first_name: player["first_name"], last_name: player["last_name"], height: player["height"], weight: player["weight"], position: player["position"], jersey_number: player["jersey"], college: player["college"], birthdate: player["birth_date"], teamRef: da_id, team_id: 48)
+#     end
+
 # end
 
-# texans()
+# titans()
