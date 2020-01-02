@@ -31,16 +31,20 @@ class UsersController < ApplicationController
             render json: {articles: top_headlines, games: nbagames_today_fresh, teams: Team.all}
         end
         if params[:league].include?('NFL')
-            # nbagames_today_raw = RestClient.get("http://api.sportradar.us/nba/trial/v7/en/games/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/schedule.json?api_key=sa6bcrzgfpyff5t5ynbe7evf")
+            nflgames_today_raw = RestClient.get("http://api.sportradar.us/nfl/official/trial/v5/en/games/2019/PST/1/schedule.json?api_key=gxwenyjwghsgpusdmj8qs8t3")
 
-            # nbagames_today_fresh = JSON.parse(nbagames_today_raw)
+            nflgames_today_fresh = JSON.parse(nflgames_today_raw)
+
+            nfl_games = {games: nflgames_today_fresh["week"]["games"]}
+
+            # byebug
 
             nflnews_raw = RestClient.get('https://newsapi.org/v2/everything?domains=nfl.com&apiKey=f44ccf725ca9471596da059a5defc2fc')
             nflnews_fresh = JSON.parse(nflnews_raw)
             # nbanews_filtered = nbanews_fresh.delete_if {|article, content| content == nil}
             nflnews_filtered = nflnews_fresh["articles"].select {|article| article["content"] != nil}
             top_headlines = nflnews_filtered.length >= 3 ? nflnews_filtered.slice(0,3) : nflnews_filtered.slice(0, nflnews_filtered.length) 
-            render json: {articles: top_headlines, games: [], teams: Team.all}
+            render json: {articles: top_headlines, games: nfl_games, teams: Team.all}
         end
 
     end
@@ -61,9 +65,11 @@ class UsersController < ApplicationController
 
         if !user.leagues.include?(league)
             UserLeague.create(user: user, league: league)
+            render json: user.to_json(:include => :leagues, :except => [:updated_at])
+        else
+            render json: {result: "Already Follow"}
         end
         
-        render json: user.to_json(:include => :leagues, :except => [:updated_at])
     end
 
     def followPlayer

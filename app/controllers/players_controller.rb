@@ -50,8 +50,21 @@ class PlayersController < ApplicationController
         end
         # byebug
             if params[:league] == 'NFL'
+                articles = []
                 if params[:myOrigin] === 'profile'
-                    # byebug
+                        browser = Watir::Browser.new :chrome, :switches => %w[--ignore-certificate-errors --disable-popup-blocking --disable-translate --disable-notifications --start-maximized --disable-gpu --headless]
+                        browser.driver.manage.timeouts.implicit_wait = 100 
+                        browser.goto("https://www.rotoworld.com/football/nfl/player/#{player["rotoRef"]}/#{player["first_name"]}-#{player["last_name"]}/news")
+                        js_doc = browser.element(css: ".player-news__list").wait_until(&:present?)
+                        new_doc = Nokogiri::HTML(js_doc.inner_html)
+                        titles = new_doc.css('.player-news-article__title') 
+                        news = new_doc.css('.player-news-article__summary')
+                        # byebug
+                        num_of_articles = titles.length
+                        num_of_articles.times do |i|
+                            articles.push({body: news[i].text, headline: titles[i].text})
+                        end
+                        browser.close
                     render json: {player: player.as_json(:include => :team), articles: articles} #make same as nba above
                 end
             end

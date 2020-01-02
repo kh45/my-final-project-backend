@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   post '/NFLHome' => 'leagues#NFLHome'
   get '/NBAteams' => 'teams#NBATeams'
+  get '/NFLteams' => 'teams#NFLTeams'
   get '/NBAPlayers' => 'players#NBAPlayers'
   get '/NFLPlayers' => 'players#NFLPlayers'
 

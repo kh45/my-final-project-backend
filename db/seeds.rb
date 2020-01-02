@@ -353,3 +353,66 @@ end
 # end
 
 # titans()
+
+def get_rotos
+    url="https://www.rotoworld.com/football/nfl/teams/buf/buffalo-bills/depth-chart"
+    # browser = Watir::Browser.new
+    browser = Watir::Browser.new :chrome, :switches => %w[--ignore-certificate-errors --disable-popup-blocking --disable-translate --disable-notifications --start-maximized --disable-gpu --headless]
+    browser.driver.manage.timeouts.implicit_wait = 100 
+    browser.goto(url)
+    js_doc = browser.link(href: 'https://www.rotoworld.com/football/nfl/player/9927/corey-bojorquez').wait_until(&:present?)
+    new_doc = Nokogiri::HTML(js_doc.inner_html)
+    section = []
+    hello = new_doc.css('tr').css('td')
+    hello.each do |section|
+        byebug
+    end
+    # titles = new_doc.css('.player-news-article__title') 
+    # news = new_doc.css('.player-news-article__summary')
+    byebug
+    browser.close
+end
+
+def get_rotox
+    team_id = 62
+    url="/Users/flatironschool/Desktop/rosters/Seattle Seahawks Depth Chart.htm"
+    html = open(url)
+    new_doc = Nokogiri::HTML(html)
+    hello = new_doc.css('.depth-chart-list-item')
+    hello.each do |section|
+        first_name = section.children[0].attr('href').split('/')[-1].split('-')[0].capitalize()
+        last_name = section.children[0].attr('href').split('/')[-1].split('-')[1].capitalize()
+        rotoId = section.children[0].attr('href').split('/')[-2]
+        # byebug
+        player = Player.where(first_name: first_name, last_name: last_name, team_id: team_id)
+        # byebug
+        if player[0] != nil
+            Player.update(player[0].id, :rotoRef => rotoId)
+        else
+            puts first_name, last_name
+        end
+    end
+    # titles = new_doc.css('.player-news-article__title') 
+    # news = new_doc.css('.player-news-article__summary')
+    # byebug
+    # browser.close
+end
+
+# get_rotox()
+
+# def fix
+#     play = Player.where(full_name: 'Justin Jackson')
+
+#     byebug
+# end
+
+# # fix()
+
+# Player.update(386, :headshot => 'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628367.png')
+# Player.update(454, :headshot => 'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628382.png')
+
+# Team.update(24, :logo => 'https://stats.nba.com/media/img/teams/logos/SAS_logo.svg')
+
+# User.create(username: 'newuser2', password: 'thegame', email: 'hello', name: 'john')
+
+Team.update(42, :logo => 'https://cdn.freebiesupply.com/images/large/2x/tennessee-titans-logo-transparent.png')
