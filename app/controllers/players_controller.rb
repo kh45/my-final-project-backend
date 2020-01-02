@@ -51,7 +51,7 @@ class PlayersController < ApplicationController
         # byebug
             if params[:league] == 'NFL'
                 articles = []
-                if params[:myOrigin] === 'profile'
+                if params[:myOrigin] === 'profile' && player["rotoRef"] != nil
                         browser = Watir::Browser.new :chrome, :switches => %w[--ignore-certificate-errors --disable-popup-blocking --disable-translate --disable-notifications --start-maximized --disable-gpu --headless]
                         browser.driver.manage.timeouts.implicit_wait = 100 
                         browser.goto("https://www.rotoworld.com/football/nfl/player/#{player["rotoRef"]}/#{player["first_name"]}-#{player["last_name"]}/news")
@@ -65,8 +65,8 @@ class PlayersController < ApplicationController
                             articles.push({body: news[i].text, headline: titles[i].text})
                         end
                         browser.close
+                    end
                     render json: {player: player.as_json(:include => :team), articles: articles} #make same as nba above
-                end
             end
 
             if params[:myOrigin] === 'modal'
